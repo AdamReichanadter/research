@@ -14,13 +14,13 @@ symbolTable *initTable() {
 }
 
 // Inserts data into the symbol table
-// TODO: 0's always get turned into null
 void add(void *value, Node *v, symbolTable *symbol) {
     symbol->table[symbol->pos][0] = (int) value; // The value of the symbol
-    symbol->table[symbol->pos][1] = (int) findPos(v); // The index of the associated node
+    int position = findPos(v);
+    symbol->table[symbol->pos][1] = position; // The index of the associated node
     // Because it keeps turning 0's into NULL
     if (symbol->table[symbol->pos][1] == NULL) {
-        symbol->table[symbol->pos][1] = NULL;
+        symbol->table[symbol->pos][1] = atoi(NULL);
     }
     symbol->table[symbol->pos][2] = (int) 1; // The current version of the variable
     // Loop backwards through the symbol table to check for versions

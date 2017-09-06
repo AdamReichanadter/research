@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$USER_HOME$/CLionProjects/CFG/.idea/untitled.iml" filepath="$USER_HOME$/CLionProjects/CFG/.idea/untitled.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/research.iml" filepath="$PROJECT_DIR$/.idea/research.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../CFG/.idea/untitled.iml" filepath="$PROJECT_DIR$/../CFG/.idea/untitled.iml" />
     </modules>
   </component>
 </project>

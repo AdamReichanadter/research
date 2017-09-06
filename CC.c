@@ -41,7 +41,7 @@ void addCC(Node *nodes[], int size) {
     }
 }
 
-// Updates the upwards and downwards exposed classes for each nodes
+// Updates the upwards and downwards exposed classes for each node
 void updateExposed(Node *nodes[], int size) {
     // Loop through all the nodes
     for (int i = 0; i < size; i++) {
@@ -57,7 +57,7 @@ void updateExposed(Node *nodes[], int size) {
             nodes[i]->downward = nodes[i]->classes[0];
             continue;
         }
-        // Case 3 TODO: Should be fixed but still needs testing
+        // Case 3
         if (nodes[i]->classes[0]->def[0] == 1) {
             nodes[i]->upward = NULL;
             nodes[i]->downward = nodes[i]->classes[nodes[i]->numOfClasses - 1];

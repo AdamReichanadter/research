@@ -233,6 +233,8 @@ int main() {
     addVariable(b, (void *) 'd', 0, symbolTable);
     addVariable(b, (void *) 'c', 1, symbolTable);
     addVariable(b, (void *) 'd', 0, symbolTable);
+    addCC(nodes, size);
+    updateExposed(nodes, size);
 
     return 0;
 }
