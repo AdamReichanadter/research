@@ -40,16 +40,19 @@ Predicate *addChild(Predicate *predicate, int type) {
 }
 
 // Checks if the value is in the key and then marks the appropriate index in the bit vector
-void addValue(char c, Predicate *pred, predTable *predTable) {
+// int comp is a 1 for a complement and 0 otherwise
+// TODO: Add complements
+void addValue(char c, Predicate *pred, predTable *predTable, int comp) {
     for (int i = 0; i < predTable->size; i++) {
         if (predTable->predTable[i] == c) {
-            pred->complement[i] = 0;
+            pred->complement[i] = comp;
             pred->bitvec[i] = 1;
         }
     }
 }
 
 // Computes a new predicate from a || b
+//TODO: combine complements AND test
 Predicate *combineOr(Predicate *a, Predicate *b, predTable *table) {
     // If one predicate is true then the resulting predicate is the other
     Predicate* result;
@@ -75,10 +78,12 @@ Predicate *combineOr(Predicate *a, Predicate *b, predTable *table) {
         result = addPred(2); // The combination of a and b
         Predicate *c = addChild(result, 0);
         Predicate *d = addChild(result, 0);
-        // Copy the bit vectors
+        // Copy bitvec and complement
         for (int i = 0; i < table->size; i++) {
             c->bitvec[i] = a->bitvec[i];
             d->bitvec[i] = b->bitvec[i];
+            c->complement[i] = a->complement[i];
+            d->complement[i] = b->complement[i];
         }
         return result;
     }
@@ -99,6 +104,7 @@ Predicate *combineOr(Predicate *a, Predicate *b, predTable *table) {
 }
 
 // Computes a new predicate from a && b
+// TODO: combine complements AND test
 Predicate *combineAnd(Predicate *a, Predicate *b, predTable *table) {
     // If one predicate is true then the resulting predicate is the other
     Predicate* result;
@@ -113,10 +119,14 @@ Predicate *combineAnd(Predicate *a, Predicate *b, predTable *table) {
     // AND && AND
     if (a->type == 0 && b->type == 0) {
         result = addPred(0);
-        // Combine the bit vectors into a new one
+        // Combine the bitvecs into a new one
         for (int i = 0; i < table->size; i++) {
             if (a->bitvec[i] == 1 || b->bitvec[i] == 1) {
                 result->bitvec[i] = 1;
+            }
+            // Copy the complements too
+            if (a->complement[i] == 1 || b->complement == 1) {
+                result->complement[i] = 1;
             }
         }
         return result;
@@ -127,8 +137,13 @@ Predicate *combineAnd(Predicate *a, Predicate *b, predTable *table) {
         for (int i = 0; i < b->numberOfChildren; i++) {
             // For each position in the bit vector
             for (int j = 0; j < table->size; j++) {
+                // Foiling the variables
                 if (a->bitvec[j] == 1) {
                     b->pred[i + 1]->bitvec[j] = 1;
+                }
+                // Foiling the complements
+                if (a->complement[j] == 1) {
+                    b->pred[i + 1]->complement[j] = 1;
                 }
             }
         }
@@ -141,8 +156,13 @@ Predicate *combineAnd(Predicate *a, Predicate *b, predTable *table) {
         for (int i = 0; i < a->numberOfChildren; i++) {
             // For each position in the bit vector
             for (int j = 0; j < table->size; j++) {
+                // Foiling the variables
                 if (b->bitvec[j] == 1) {
                     a->pred[i + 1]->bitvec[j] = 1;
+                }
+                // Foiling the complements
+                if (b->complement[j] == 1) {
+                    a->pred[i + 1]->complement[j] = 1;
                 }
             }
         }
@@ -159,9 +179,13 @@ Predicate *combineAnd(Predicate *a, Predicate *b, predTable *table) {
                 addChild(result, 0);
                 // For each entry in their bit vectors
                 for (int k = 0; k < table->size; k++) {
-                    // OR them together
+                    // OR the variables
                     if ((b->pred[j]->bitvec[k] == 1) || (a->pred[i]->bitvec[k] == 1)) {
                         result->pred[result->numberOfChildren]->bitvec[k] = 1;
+                    }
+                    // OR the complements
+                    if ((b->pred[j]->complement[k] == 1) || (a->pred[i]->complement[k] == 1)) {
+                        result->pred[result->numberOfChildren]->complement[k] = 1;
                     }
                 }
             }

@@ -7,7 +7,7 @@ typedef struct Predicate {
     struct Predicate *pred[10]; // Stores pointers to other predicates
     int numberOfChildren;
     int bitvec[10]; // Index corresponds to the key in predTable
-    int complement[10]; // Inverse of bitvec to show the complement
+    int complement[10]; // Is a 1 if the variable is the complement, 0 otherwise
 } Predicate;
 
 #endif

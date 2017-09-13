@@ -3,6 +3,7 @@
 
 
 // Creates congruence classes from all of the current nodes
+// TODO: Add the variable from the symbol table
 void addCC(Node *nodes[], int size) {
     CC *newCC;
     // Loop through all the nodes
