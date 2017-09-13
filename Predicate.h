@@ -1,6 +1,5 @@
 #ifndef PREDICATE_H
 #define PREDICATE_H
-
 // Predicate object
 typedef struct Predicate {
     int type; // And, true, or

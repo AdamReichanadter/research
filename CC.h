@@ -1,6 +1,5 @@
 #ifndef CC_H
 #define CC_H
-
 // Congruence class
 typedef struct {
     int use[10]; // Bit vector corresponding to uses
