@@ -30,7 +30,12 @@ void add(void *value, Node *v, symbolTable *symbol) {
     symbol->pos++; // The index is the key for each symbol
 }
 
-// Returns the symbol at the given index
-void *getSymbol(int i, symbolTable *symbol) {
-    return symbol->table[i][0];
+// Returns the requested symbol
+int getSymbol(int value, symbolTable *symbol) {
+    for (int i = symbol->pos - 1; i >= 0; i--) {
+        if (symbol->table[i][0] == value) {
+            return value;
+        }
+    }
+    return -1; // If there is no value
 }

@@ -4,7 +4,7 @@
 
 // Creates congruence classes from all of the current nodes
 // TODO: Add the variable from the symbol table
-void addCC(Node *nodes[], int size) {
+void addCC(Node *nodes[], int size, symbolTable* table) {
     CC *newCC;
     // Loop through all the nodes
     for (int i = 0; i < size; i++) {
@@ -20,7 +20,7 @@ void addCC(Node *nodes[], int size) {
             }
             // Update the use bit vector if its a use
             if (nodes[i]->usedef[j] == 0) {
-                newCC->variables[j] = nodes[i]->variable[j]; // Add the variable to the CC
+                newCC->variables[j] = getSymbol((int) nodes[i]->variable[j], table); // Add the variable to the CC
                 newCC->use[j] = 1;
                 newCC->size++;
             }
@@ -30,7 +30,7 @@ void addCC(Node *nodes[], int size) {
                     newCC = malloc(sizeof(CC)); // Create a new CC
                     nodes[i]->numOfClasses++;
                 }
-                newCC->variables[j] = nodes[i]->variable[j]; // Add the variable to the CC
+                newCC->variables[j] = getSymbol((int) nodes[i]->variable[j], table); // Add the variable to the CC
                 newCC->def[j] = 1; // A def ends the congruence class
                 newCC->size = 0;
                 classPos++;

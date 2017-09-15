@@ -14,7 +14,7 @@ Node *getSuccessor(Node *v);
 
 Node *addNode();
 
-void addVariable(Node *node, void *v, int usedef, symbolTable* table);
+void addVariable(Node *node, void *v, int usedef, symbolTable *table);
 
 Node *addEdge(Node *u, Node *v);
 
@@ -71,7 +71,7 @@ Node *addNode() {
 
 //Input: a node, and a new value
 // Updates the node with a new instance of a variable
-void addVariable(Node *node, void *v, int usedef, symbolTable* table) {
+void addVariable(Node *node, void *v, int usedef, symbolTable *table) {
     int i = node->index;
     node->variable[i] = v;
     node->usedef[i] = usedef;
@@ -202,25 +202,24 @@ void printMatrix() {
 }
 
 int main() {
-    // Testing purposes
-//    predTable* table = createTable();
+    //Testing purposes
+//    predTable *table = createTable();
 //    addKey('p', table);
 //    addKey('q', table);
 //    addKey('r', table);
 //    addKey('s', table);
-//    Predicate* a = addPred(2);
-//    Predicate* b = addPred(2);
-//    Predicate* c = addChild(a, 0);
-//    Predicate* d = addChild(a, 0);
-//    Predicate* e = addChild(b, 0);
-//    Predicate* f = addChild(b, 0);
-//    addValue('p', c, table);
-//    addValue('q', d, table);
-//    addValue('r', e, table);
-//    addValue('s', f, table);
-//    Predicate* g = combineAnd(a, b, table);
-//    printChildren(a, table);
-//    traverse(a, table);
+//    Predicate *a = addPred(2);
+//    Predicate *b = addPred(2);
+//    Predicate *c = addChild(a, 0);
+//    Predicate *d = addChild(a, 0);
+//    Predicate *e = addChild(b, 0);
+//    Predicate *f = addChild(b, 0);
+//    addValue('p', c, table, 1);
+//    addValue('q', d, table, 1);
+//    addValue('r', e, table, 1);
+//    addValue('s', f, table, 1);
+//    Predicate *g = combineAnd(a, b, table);
+
 
     Node* a = addNode();
     Node* b = addNode();
@@ -233,8 +232,8 @@ int main() {
     addVariable(b, (void *) 'd', 0, symbolTable);
     addVariable(b, (void *) 'c', 1, symbolTable);
     addVariable(b, (void *) 'd', 0, symbolTable);
-    addCC(nodes, size);
+    addCC(nodes, size, symbolTable);
     updateExposed(nodes, size);
 
-    return 0;
+return 0;
 }

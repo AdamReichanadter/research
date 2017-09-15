@@ -41,7 +41,6 @@ Predicate *addChild(Predicate *predicate, int type) {
 
 // Checks if the value is in the key and then marks the appropriate index in the bit vector
 // int comp is a 1 for a complement and 0 otherwise
-// TODO: Add complements
 void addValue(char c, Predicate *pred, predTable *predTable, int comp) {
     for (int i = 0; i < predTable->size; i++) {
         if (predTable->predTable[i] == c) {
