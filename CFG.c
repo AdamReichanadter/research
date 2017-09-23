@@ -58,6 +58,14 @@ int findPos(Node *v) {
     return -1; // if there is no match
 }
 
+int findVar(Node *v, void *value) {
+    for (int i = v->index; i <= 0; i--) {
+        if (v->variable[i] == value) {
+            return i;
+        }
+    }
+}
+
 // Input: generic value v, int usedef 0 (use) 1 (def) -1(neither)
 // Creates a new object and adds it to nodes[], returns the created node
 Node *addNode() {
@@ -221,9 +229,9 @@ int main() {
 //    Predicate *g = combineAnd(a, b, table);
 
 
-    Node* a = addNode();
-    Node* b = addNode();
-    symbolTable* symbolTable = initTable();
+    Node *a = addNode();
+    Node *b = addNode();
+    symbolTable *symbolTable = initTable();
     addVariable(a, (void *) 'a', 0, symbolTable);
     addVariable(a, (void *) 'a', 1, symbolTable);
     addVariable(a, (void *) 'b', 0, symbolTable);
@@ -235,5 +243,5 @@ int main() {
     addCC(nodes, size, symbolTable);
     updateExposed(nodes, size);
 
-return 0;
+    return 0;
 }
